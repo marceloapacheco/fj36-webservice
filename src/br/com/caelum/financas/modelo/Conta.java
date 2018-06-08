@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -42,6 +44,10 @@ public class Conta {
 	@OneToMany(mappedBy = "conta")
 	@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 	private List<Movimentacao> movimentacoes;
+	
+	@OneToOne
+	@JoinColumn(unique=true)
+	private Gerente gerente;
 
 	public List<Movimentacao> getMovimentacoes() {
 		return movimentacoes;
@@ -100,6 +106,14 @@ public class Conta {
 
 	public void setBanco(String banco) {
 		this.banco = banco;
+	}
+
+	public Gerente getGerente() {
+		return gerente;
+	}
+
+	public void setGerente(Gerente gerente) {
+		this.gerente = gerente;
 	}
 
 }
